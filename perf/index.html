@@ -4,6 +4,10 @@
     <title>Performance Classes Javascript Demo</title>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <style>
+      body {
+        font:14px/1.5 Arial, Helvetica, sans-serif;
+        margin:25px;
+      }
       button {
         border-radius: 2px;
         display:block;
@@ -46,6 +50,10 @@
       p.close {
           width:100%;
       }
+      p.footer {
+        font-size:10px;
+        text-align:center;
+      }
       @-webkit-keyframes sk-rotateplane {
         0% { -webkit-transform: perspective(120px) }
         50% { -webkit-transform: perspective(120px) rotateY(180deg) }
@@ -72,7 +80,7 @@
           var button = $(this);
           var delay = button.val();
           button.click(function() {
-            var now = new Date();
+            var start = new Date();
             var showSpinner = delay >= 500;
             $("#controls").toggle();
             $("#content").toggle();
@@ -80,7 +88,8 @@
             window.setTimeout(function() {
               if (showSpinner) $("#spinner").toggle();
               $("#content_text").toggle();
-              console.log(new Date() - now);
+              var duration = new Date() - start;
+              $("#elapsed").text("Elapsed time: " + duration);
             }, delay);
           });
         });
@@ -97,16 +106,28 @@
   <div id="content">
     <div id="spinner"></div>
     <div id="content_text" onclick="reset();">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam maximus augue quam, non scelerisque diam congue sed. Pellentesque accumsan rutrum orci vitae varius. Nunc tellus velit, iaculis ut eleifend in, ullamcorper id lacus. Cras venenatis id diam in lacinia. Proin quis mi nibh. Quisque vehicula venenatis orci in dictum. Suspendisse vitae molestie dui. Sed ac ipsum feugiat metus scelerisque ultrices. Nunc dignissim eu libero quis sodales. Nullam lobortis fermentum augue, a posuere nisi dictum ut.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam maximus augue
+     quam, non scelerisque diam congue sed. Pellentesque accumsan rutrum orci
+     vitae varius. Nunc tellus velit, iaculis ut eleifend in, ullamcorper id
+     lacus. Cras venenatis id diam in lacinia. Proin quis mi nibh.
+     Quisque vehicula venenatis orci in dictum. Suspendisse vitae molestie dui.
+     Sed ac ipsum feugiat metus scelerisque ultrices. Nunc dignissim eu libero
+     quis sodales. Nullam lobortis fermentum augue, a posuere nisi dictum ut.
+    <p class="footer">Tap anywhere to close.</p>
+    <p class="footer" id="elapsed"></p>
     </div>
   </div>
   <div id="controls">
+    <button type="button" value="20">20ms</button>
+    <button type="button" value="50">50ms</button>
     <button type="button" value="100">100ms</button>
     <button type="button" value="200">200ms (Fast)</button>
     <button type="button" value="500">500ms (Typical)</button>
     <button type="button" value="1000">1s (Responsive)</button>
     <button type="button" value="2000">2s (Complex)</button>
     <button type="button" value="3000">3s</button>
+    <button type="button" value="5000">5s</button>
+    <button type="button" value="7000">7s</button>
   <div>
 </form>
 </body>
