@@ -1,0 +1,107 @@
+<html>
+  <head>
+    <title>Performance Classes Javascript Demo</title>
+    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+    <style>
+      button {
+        border-radius: 4px;
+        display:block;
+        width:100%;
+        margin:10px;
+        clear: all;
+      }
+      form {
+          margin: auto;
+          width:200px;
+      }
+      #content {
+          background: white;
+          width:inherit;
+          position:absolute;
+          display:none;
+          z-index:1;
+          padding: 5px;
+      }
+      #content_text {
+        display:none;
+      }
+      /* From http://tobiasahlin.com/spinkit/ */
+      #spinner {
+        width: 40px;
+        height: 40px;
+        background-color: #ccc;
+        display:none;
+
+        margin: 100px auto;
+        -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+        animation: sk-rotateplane 1.2s infinite ease-in-out;
+      }
+      p.close {
+          width:100%;
+      }
+      @-webkit-keyframes sk-rotateplane {
+        0% { -webkit-transform: perspective(120px) }
+        50% { -webkit-transform: perspective(120px) rotateY(180deg) }
+        100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }
+      }
+
+      @keyframes sk-rotateplane {
+        0% {
+          transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+          -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+        } 50% {
+          transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+          -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+        } 100% {
+          transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+          -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        }
+      }
+    </style>
+    <script>
+      function init() {
+        var buttons = $(":button");
+        buttons.each(function() {
+          var button = $(this);
+          var delay = button.val();
+          button.click(function() {
+            var now = new Date();
+            var showSpinner = delay >= 500;
+            $("#controls").toggle();
+            $("#content").toggle();
+            if (showSpinner) $("#spinner").toggle();
+            window.setTimeout(function() {
+              if (showSpinner) $("#spinner").toggle();
+              $("#content_text").toggle();
+              console.log(new Date() - now);
+            }, delay);
+          });
+        });
+      }
+      function reset() {
+        $("#content").toggle();
+        $("#content_text").toggle();
+        $("#controls").toggle();
+      }
+    </script>
+  </head>
+<body onload="init();">
+<form id="pc_form">
+  <div id="content">
+    <div id="spinner"></div>
+    <div id="content_text" onclick="reset();">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam maximus augue quam, non scelerisque diam congue sed. Pellentesque accumsan rutrum orci vitae varius. Nunc tellus velit, iaculis ut eleifend in, ullamcorper id lacus. Cras venenatis id diam in lacinia. Proin quis mi nibh. Quisque vehicula venenatis orci in dictum. Suspendisse vitae molestie dui. Sed ac ipsum feugiat metus scelerisque ultrices. Nunc dignissim eu libero quis sodales. Nullam lobortis fermentum augue, a posuere nisi dictum ut.
+    </div>
+  </div>
+  <div id="controls">
+    <button type="button" value="100">100ms</button>
+    <button type="button" value="200">200ms (Fast)</button>
+    <button type="button" value="500">500ms (Typical)</button>
+    <button type="button" value="1000">1s (Responsive)</button>
+    <button type="button" value="2000">2s</button>
+    <button type="button" value="3000">3s (Complex)</button>
+  <div>
+</form>
+</body>
+
+</html>
